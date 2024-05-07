@@ -50,6 +50,7 @@ export default function Home() {
       const response = await axios.post(`${url}waitlist/email`, { email });
       console.log(response);
       if (response.status === 201) {
+        e.target.reset();
         enqueueSnackbar(`${response.data.message}`, {
           variant: "success",
           autoHideDuration: 3000,
