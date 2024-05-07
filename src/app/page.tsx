@@ -30,7 +30,7 @@ export default function Home() {
 
   const url = isProduction
     ? process.env.NEXT_PUBLIC_PROD_SERVER // Production server URL
-    : process.env.NEXT_PUBLIC_LOCAL_SERVER; // Local server URL
+    : process.env.NEXT_PUBLIC_LOCAL_SERVER // Local server URL
 
   const handleEmailSubscriber = async (e: any) => {
     e.preventDefault();
