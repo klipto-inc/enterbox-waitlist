@@ -37,18 +37,28 @@ export default function Home() {
     console.log(email, url);
 
     setLoading(true);
-    try {
-      if (!email) {
-        setLoading(false);
-        return;
-      }
 
-      // const response = await axios.post(
-      //   `http://localhost:8000/api/v1/waitlist/email`,
-      //   { email }
-      // );
+    // Simple email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      enqueueSnackbar("Please enter a valid email address", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "center",
+        },
+      });
+      setLoading(false);
+      return;
+    }
+
+    console.log("email", email);
+
+    try {
       const response = await axios.post(`${url}waitlist/email`, { email });
       console.log(response);
+
       if (response.status === 201) {
         e.target.reset();
         enqueueSnackbar(`${response.data.message}`, {
@@ -58,15 +68,12 @@ export default function Home() {
             vertical: "bottom",
             horizontal: "center",
           },
-
           action: (key) => (
             <button onClick={() => closeSnackbar(key)}>
-              {" "}
               <svg
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                className=""
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -83,36 +90,36 @@ export default function Home() {
         });
       }
     } catch (error: any) {
-      enqueueSnackbar(`${error?.response.data.message}`, {
-        variant: "error",
-        autoHideDuration: 3000,
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "center",
-        },
-
-        action: (key) => (
-          <button onClick={() => closeSnackbar(key)}>
-            {" "}
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 24 24"
-              className=""
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"
-                stroke="#fff"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        ),
-      });
+      enqueueSnackbar(
+        `${error?.response?.data?.message || "An error occurred"}`,
+        {
+          variant: "error",
+          autoHideDuration: 3000,
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "center",
+          },
+          action: (key) => (
+            <button onClick={() => closeSnackbar(key)}>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"
+                  stroke="#fff"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          ),
+        }
+      );
     } finally {
       setLoading(false);
     }
