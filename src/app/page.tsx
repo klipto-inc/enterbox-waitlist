@@ -30,7 +30,7 @@ export default function Home() {
 
   const url = isProduction
     ? process.env.NEXT_PUBLIC_PROD_SERVER // Production server URL
-    : process.env.NEXT_PUBLIC_LOCAL_SERVER // Local server URL
+    : process.env.NEXT_PUBLIC_LOCAL_SERVER; // Local server URL
 
   const handleEmailSubscriber = async (e: any) => {
     e.preventDefault();
@@ -224,7 +224,7 @@ export default function Home() {
                 </div>
 
                 <button
-                  className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-red-600 to-violet-600 hover:from-black-600 hover:to-red-[#C12727] border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 py-3 px-4 dark:focus:ring-offset-gray-800 border-none"
+                  className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-Primary to-violet-600 hover:from-black-600 hover:to-red-[#C12727] border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 py-3 px-4 dark:focus:ring-offset-gray-800 border-none"
                   type="submit"
                   aria-label="Join waitlist"
                 >
